@@ -2,20 +2,22 @@ import cv2
 import os
 import numpy as np
 from tqdm import tqdm
+import matplotlib
+from PIL import Image 
+import PIL 
 
-data = 'CroppedYale/'
+data = 'images/'
 arr = []
 
-for i in tqdm(os.listdir(data)):
-    sub_dir = data + i
-    for i in os.listdir(sub_dir):
-        if '.' in i:
-            if i.split('.')[1] == 'pgm':
-                a = cv2.imread(sub_dir +'/'+ i, 0)
-                a = cv2.resize(a, (64, 64))
-                arr.append(a)
+for j in tqdm(os.listdir(data)):
+    sub_dir = data + j
+    a = cv2.imread(sub_dir, 0)
+    arr.append(a)
+
+                #a = Image.fromarray(a)
+                #a.save('images/'+i.split('.')[0]+'.png')
 
 X = np.array(arr)
 print(X.shape)
 
-np.save("numpy_saves/face64X64", X)
+np.save("numpy_saves/face64X64_filtered", X)
